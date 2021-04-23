@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Fuck {
+public class SBConstant {
 
     public static class ScanFuck extends Java8ParserBaseListener{
         TokenStreamRewriter rewriter;
