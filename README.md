@@ -11,7 +11,7 @@
 #### 安装教程
 
 1.  安装java 
-2.  运行SBConstant
+2.  打包SBConstant
 
 #### 使用说明
 

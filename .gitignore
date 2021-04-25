@@ -1,1 +1,7 @@
 /src/main/gen/
+/.gradle/
+/build/
+/gradle/
+/sb-constant/
+/.idea/
+/**/*.class
