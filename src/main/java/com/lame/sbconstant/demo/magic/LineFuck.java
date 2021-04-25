@@ -1,7 +1,7 @@
-package magic;
+package com.lame.sbconstant.demo.magic;
 
-import examples.Java8Parser;
-import examples.Java8ParserBaseListener;
+import core.analy.Java8Parser;
+import core.analy.Java8ParserBaseListener;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 

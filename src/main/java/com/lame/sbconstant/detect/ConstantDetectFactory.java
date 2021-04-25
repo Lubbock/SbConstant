@@ -1,9 +1,8 @@
 package com.lame.sbconstant.detect;
 
-import com.lame.sbconstant.detect.strategy.CommonDetectStrategy;
+import com.lame.sbconstant.detect.strategy.MethodFieldDetectStrategy;
 import com.lame.sbconstant.detect.strategy.EntityDetectStrategy;
 import com.lame.sbconstant.detect.vo.FileType;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
  * 常量工厂
@@ -20,7 +19,7 @@ public class ConstantDetectFactory {
             case SERVICE:
             case COMMON:
             default:
-                detectContext = new DetectContext(new CommonDetectStrategy());
+                detectContext = new DetectContext(new MethodFieldDetectStrategy());
                 break;
         }
         return detectContext;

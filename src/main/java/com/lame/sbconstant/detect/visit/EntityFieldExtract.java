@@ -1,15 +1,13 @@
 package com.lame.sbconstant.detect.visit;
 
 import com.lame.sbconstant.utils.Antlr4Utils;
-import examples.Java8Parser;
-import examples.Java8ParserBaseVisitor;
+import core.analy.Java8Parser;
+import core.analy.Java8ParserBaseVisitor;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class EntityFieldExtract extends Java8ParserBaseVisitor<String> {
 

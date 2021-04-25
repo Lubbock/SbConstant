@@ -2,17 +2,12 @@ package com.lame.sbconstant.detect;
 
 import com.lame.sbconstant.detect.visit.PackageImportExtract;
 import com.lame.sbconstant.detect.vo.FileType;
-import com.lame.sbconstant.utils.Antlr4Utils;
-import examples.Java8Parser;
-import examples.Java8ParserBaseVisitor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Data

@@ -44,12 +44,12 @@
  *  $ grun Java8 compilationUnit *.java
  *
  * Or,
-~/antlr/code/grammars-v4/java8 $ java Test .
+~/antlr/code/grammars-v4/java8 $ java com.lame.sbconstant.demo.Test .
 /Users/parrt/antlr/code/grammars-v4/java8/./Java8BaseListener.java
 /Users/parrt/antlr/code/grammars-v4/java8/./Java8Lexer.java
 /Users/parrt/antlr/code/grammars-v4/java8/./Java8Listener.java
 /Users/parrt/antlr/code/grammars-v4/java8/./Java8Parser.java
-/Users/parrt/antlr/code/grammars-v4/java8/./Test.java
+/Users/parrt/antlr/code/grammars-v4/java8/./com.lame.sbconstant.demo.Test.java
 Total lexer+parser time 30844ms.
  */
 lexer grammar Java8Lexer;

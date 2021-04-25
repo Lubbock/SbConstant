@@ -1,4 +1,4 @@
-/* [The "BSD license"]
+package com.lame.sbconstant.demo;/* [The "BSD license"]
  *  Copyright (c) 2019 Student Main
  *  All rights reserved.
  *

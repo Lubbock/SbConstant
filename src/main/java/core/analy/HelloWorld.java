@@ -1,4 +1,4 @@
-package examples;
+package core.analy;
 
 public class HelloWorld {
    public static void main(String[] args) {

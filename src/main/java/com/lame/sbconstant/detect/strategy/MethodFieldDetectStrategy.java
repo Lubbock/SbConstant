@@ -8,12 +8,12 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.*;
 
-public class CommonDetectStrategy implements DetectStrategy {
+public class MethodFieldDetectStrategy implements DetectStrategy {
     @Override
     public ClassMeta detect(ParseTree parseTree) {
         MethodFieldExtract extract = new MethodFieldExtract();
         extract.visit(parseTree);
-        List<LineExtraMeta> lineExtraMetas = extract.getInvokeStatement().getKv();
+        List<LineExtraMeta> lineExtraMetas = extract.getFieldStatementVisit().getKv();
         List<LineExtraMeta> metas = new ArrayList<>();
         Set<String> uniqueMeta = new HashSet<>();
         //去掉重复定义

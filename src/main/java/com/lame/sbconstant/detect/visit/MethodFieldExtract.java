@@ -1,12 +1,13 @@
 package com.lame.sbconstant.detect.visit;
 
-import examples.Java8Parser;
-import examples.Java8ParserBaseVisitor;
+import core.analy.Java8Parser;
+import core.analy.Java8ParserBaseVisitor;
 import lombok.Getter;
 
 public class MethodFieldExtract extends Java8ParserBaseVisitor<Void> {
 
-    @Getter InvokeStatement invokeStatement = new InvokeStatement();
+    @Getter
+    FieldStatementVisit fieldStatementVisit = new FieldStatementVisit();
 
     @Override
     public Void visitMethodInvocation(Java8Parser.MethodInvocationContext ctx) {
@@ -24,14 +25,14 @@ public class MethodFieldExtract extends Java8ParserBaseVisitor<Void> {
             }
         }
         if (!ignore) {
-            invokeStatement.visit(ctx);
+            fieldStatementVisit.visit(ctx);
         }
         return super.visitMethodInvocation(ctx);
     }
 
     @Override
     public Void visitLocalVariableDeclarationStatement(Java8Parser.LocalVariableDeclarationStatementContext ctx) {
-        invokeStatement.visit(ctx);
+        fieldStatementVisit.visit(ctx);
         return super.visitLocalVariableDeclarationStatement(ctx);
     }
 }

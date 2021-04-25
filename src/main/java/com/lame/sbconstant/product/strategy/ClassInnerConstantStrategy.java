@@ -11,14 +11,15 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.util.List;
 
-public class CommonProductStrategy implements ProductStrategy {
+public class ClassInnerConstantStrategy implements ProductStrategy {
     @Override
     public String product(Parser parser, ParseTree parseTree, ClassMeta classMeta, String fp) {
         TokenStream tokenStream = parser.getTokenStream();
         List<LineExtraMeta> lineExtraMetas = classMeta.getLineExtraMetas();
         MethodFieldVisit lineFuck = new MethodFieldVisit(tokenStream, lineExtraMetas);
         lineFuck.visit(parseTree);
-        System.out.println(lineFuck.getRewriter().getText());
-        return "";
+        String text = lineFuck.getRewriter().getText();
+        System.out.println(text);
+        return text;
     }
 }

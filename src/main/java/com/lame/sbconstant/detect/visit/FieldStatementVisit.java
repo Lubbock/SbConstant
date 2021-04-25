@@ -1,8 +1,8 @@
 package com.lame.sbconstant.detect.visit;
 
 import com.lame.sbconstant.detect.vo.LineExtraMeta;
-import examples.Java8Parser;
-import examples.Java8ParserBaseVisitor;
+import core.analy.Java8Parser;
+import core.analy.Java8ParserBaseVisitor;
 import lombok.Getter;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -11,15 +11,15 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class InvokeStatement extends Java8ParserBaseVisitor<Void> {
+public class FieldStatementVisit extends Java8ParserBaseVisitor<Void> {
     @Getter
     List<LineExtraMeta> kv = new ArrayList<>();
     TokenStreamRewriter rewriter;
 
-    public InvokeStatement() {
+    public FieldStatementVisit() {
     }
 
-    public InvokeStatement(TokenStreamRewriter rewriter) {
+    public FieldStatementVisit(TokenStreamRewriter rewriter) {
         this.rewriter = rewriter;
     }
 

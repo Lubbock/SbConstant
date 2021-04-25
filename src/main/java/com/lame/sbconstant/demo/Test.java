@@ -1,4 +1,4 @@
-/*
+package com.lame.sbconstant.demo;/*
  [The "BSD license"]
   Copyright (c) 2013 Terence Parr
   All rights reserved.
@@ -27,8 +27,8 @@
   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import examples.Java8Lexer;
-import examples.Java8Parser;
+import core.analy.Java8Lexer;
+import core.analy.Java8Parser;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -49,12 +49,12 @@ import java.util.concurrent.CyclicBarrier;
  * It also allows directory names as commandline arguments. The simplest test is
  * for the current directory:
 
-~/antlr/code/grammars-v4/java $ java Test .
+~/antlr/code/grammars-v4/java $ java com.lame.sbconstant.demo.Test .
 /Users/parrt/antlr/code/grammars-v4/java8/JavaBaseListener.java
 /Users/parrt/antlr/code/grammars-v4/java8/Java8Lexer.java
 /Users/parrt/antlr/code/grammars-v4/java8/JavaListener.java
 /Users/parrt/antlr/code/grammars-v4/java8/JavaParser.java
-/Users/parrt/antlr/code/grammars-v4/java8/Test.java
+/Users/parrt/antlr/code/grammars-v4/java8/com.lame.sbconstant.demo.Test.java
 Total lexer+parser time 1867ms.
  */
 class Test {

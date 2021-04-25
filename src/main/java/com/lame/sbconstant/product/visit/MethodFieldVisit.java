@@ -1,9 +1,9 @@
 package com.lame.sbconstant.product.visit;
 
-import com.lame.sbconstant.detect.visit.InvokeStatement;
+import com.lame.sbconstant.detect.visit.FieldStatementVisit;
 import com.lame.sbconstant.detect.vo.LineExtraMeta;
-import examples.Java8Parser;
-import examples.Java8ParserBaseVisitor;
+import core.analy.Java8Parser;
+import core.analy.Java8ParserBaseVisitor;
 import lombok.Getter;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.TokenStreamRewriter;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MethodFieldVisit extends Java8ParserBaseVisitor<Void> {
     @Getter
-    InvokeStatement invokeStatement;
+    FieldStatementVisit fieldStatementVisit;
     @Getter
     TokenStreamRewriter rewriter;
 
@@ -20,7 +20,7 @@ public class MethodFieldVisit extends Java8ParserBaseVisitor<Void> {
 
     public MethodFieldVisit(TokenStream tokens, List<LineExtraMeta> lineExtraMetas) {
         this.rewriter  =new TokenStreamRewriter(tokens);
-        this.invokeStatement = new InvokeStatement(rewriter);
+        this.fieldStatementVisit = new FieldStatementVisit(rewriter);
         this.lineExtraMetas = lineExtraMetas;
     }
 
@@ -53,14 +53,14 @@ public class MethodFieldVisit extends Java8ParserBaseVisitor<Void> {
             }
         }
         if (!ignore) {
-            invokeStatement.visit(ctx);
+            fieldStatementVisit.visit(ctx);
         }
         return super.visitMethodInvocation(ctx);
     }
 
     @Override
     public Void visitLocalVariableDeclarationStatement(Java8Parser.LocalVariableDeclarationStatementContext ctx) {
-        invokeStatement.visit(ctx);
+        fieldStatementVisit.visit(ctx);
         return super.visitLocalVariableDeclarationStatement(ctx);
     }
 }

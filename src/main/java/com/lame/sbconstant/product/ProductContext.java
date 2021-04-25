@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class ProductContext {
     private ProductStrategy productStrategy;
 
-    public void product(Parser parser, ParseTree parseTree, ClassMeta classMeta, String fp) {
-        productStrategy.product(parser, parseTree, classMeta, fp);
+    public String product(Parser parser, ParseTree parseTree, ClassMeta classMeta, String fp) {
+        return productStrategy.product(parser, parseTree, classMeta, fp);
     }
 }

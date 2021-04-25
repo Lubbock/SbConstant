@@ -1,8 +1,10 @@
-import examples.Java8Lexer;
-import examples.Java8Parser;
-import examples.Java8ParserBaseListener;
-import magic.LineFuck;
-import magic.MagicVisitor;
+package com.lame.sbconstant.demo;
+
+import core.analy.Java8Lexer;
+import core.analy.Java8Parser;
+import core.analy.Java8ParserBaseListener;
+import com.lame.sbconstant.demo.magic.LineFuck;
+import com.lame.sbconstant.demo.magic.MagicVisitor;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 

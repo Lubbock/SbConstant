@@ -12,7 +12,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EntityProductStrategy implements ProductStrategy {
+public class SingleClassConstantStrategy implements ProductStrategy {
 
     private String tpl = "${PACKAGE}.constant;\n" +
             "\n" +

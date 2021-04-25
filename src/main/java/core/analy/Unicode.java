@@ -1,4 +1,4 @@
-package examples;
+package core.analy;
 
 class Unicode {
         public static void main(String[] args) {

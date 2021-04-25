@@ -1,8 +1,8 @@
 package com.lame.sbconstant.product;
 
 import com.lame.sbconstant.detect.vo.FileType;
-import com.lame.sbconstant.product.strategy.CommonProductStrategy;
-import com.lame.sbconstant.product.strategy.EntityProductStrategy;
+import com.lame.sbconstant.product.strategy.ClassInnerConstantStrategy;
+import com.lame.sbconstant.product.strategy.SingleClassConstantStrategy;
 
 /**
  * 常量工厂
@@ -13,13 +13,13 @@ public class ProductFactory {
         ProductContext productContext = null;
         switch (fileType) {
             case ENTITY:
-                productContext = new ProductContext(new EntityProductStrategy());
+                productContext = new ProductContext(new SingleClassConstantStrategy());
                 break;
             case DAO:
             case SERVICE:
             case COMMON:
             default:
-                productContext = new ProductContext(new CommonProductStrategy());
+                productContext = new ProductContext(new ClassInnerConstantStrategy());
                 break;
         }
         return productContext;
