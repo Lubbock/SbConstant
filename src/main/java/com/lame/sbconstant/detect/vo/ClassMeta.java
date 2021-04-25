@@ -14,6 +14,8 @@ public class ClassMeta {
 
     private List<ClassField> fields = new ArrayList<>();
 
+    private List<LineExtraMeta> lineExtraMetas = new ArrayList<>();
+
     public void addFiled(ClassField field) {
         fields.add(field);
     }

@@ -4,6 +4,7 @@ import com.lame.sbconstant.detect.vo.ClassMeta;
 import com.lame.sbconstant.product.ProductStrategy;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,7 +24,7 @@ public class EntityProductStrategy implements ProductStrategy {
             "}\n";
 
     @Override
-    public void product(ParseTree parseTree, ClassMeta classMeta, String fp) {
+    public String product(Parser parser, ParseTree parseTree, ClassMeta classMeta, String fp) {
         Configuration configuration = new Configuration();
         Map<String, Object> root = new HashMap<>(5);
         root.put("ENTITY", classMeta.getName());
@@ -35,8 +36,10 @@ public class EntityProductStrategy implements ProductStrategy {
             Template template = new Template(classMeta.getName(), tpl, configuration);
             template.process(root, stringWriter);
             System.out.println(stringWriter.toString());
+            return stringWriter.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "";
     }
 }

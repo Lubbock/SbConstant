@@ -56,7 +56,7 @@ public class SBConstant {
             DetectContext detectContext = ConstantDetectFactory.getDetectContext(fileType);
             ClassMeta detectMeta = detectContext.detect(tree, fp);
             ProductContext productContext = ProductFactory.getProductContext(fileType);
-            productContext.product(tree, detectMeta, fp);
+            productContext.product(parser, tree, detectMeta, fp);
         } catch (Exception e) {
             e.printStackTrace();
         }
