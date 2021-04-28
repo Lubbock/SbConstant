@@ -1,14 +1,20 @@
 package com.lame.sbconstant.product.visit;
 
 import com.lame.sbconstant.detect.visit.FieldStatementVisit;
+import com.lame.sbconstant.detect.vo.ClassField;
+import com.lame.sbconstant.detect.vo.ClassMeta;
 import com.lame.sbconstant.detect.vo.LineExtraMeta;
 import core.analy.Java8Parser;
 import core.analy.Java8ParserBaseVisitor;
 import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MethodFieldVisit extends Java8ParserBaseVisitor<Void> {
     @Getter
@@ -16,12 +22,12 @@ public class MethodFieldVisit extends Java8ParserBaseVisitor<Void> {
     @Getter
     TokenStreamRewriter rewriter;
 
-    List<LineExtraMeta> lineExtraMetas;
+    ClassMeta correlation;
 
-    public MethodFieldVisit(TokenStream tokens, List<LineExtraMeta> lineExtraMetas) {
+    public MethodFieldVisit(TokenStream tokens,ClassMeta correlation) {
         this.rewriter  =new TokenStreamRewriter(tokens);
-        this.fieldStatementVisit = new FieldStatementVisit(rewriter);
-        this.lineExtraMetas = lineExtraMetas;
+        this.fieldStatementVisit = new FieldStatementVisit(rewriter, correlation);
+        this.correlation = correlation;
     }
 
     public String fuck(String key, String val) {
@@ -30,7 +36,19 @@ public class MethodFieldVisit extends Java8ParserBaseVisitor<Void> {
     @Override
     public Void visitClassBody(Java8Parser.ClassBodyContext ctx) {
         StringBuilder sb = new StringBuilder();
+        List<LineExtraMeta> lineExtraMetas = correlation.getLineExtraMetas();
+
+        ClassMeta correlation = this.correlation.getCorrelation();
+        Set<String> filter = new HashSet<>();
+        if (correlation != null) {
+            for (ClassField field : correlation.getFields()) {
+                filter.add(field.getHumpName());
+            }
+        }
         for (LineExtraMeta lineExtraMeta : lineExtraMetas) {
+            if (filter.contains(lineExtraMeta.getValue())) {
+                continue;
+            }
             sb.append(fuck(lineExtraMeta.getVariableName(), lineExtraMeta.getValue()));
         }
         rewriter.insertAfter(ctx.start, sb.toString());

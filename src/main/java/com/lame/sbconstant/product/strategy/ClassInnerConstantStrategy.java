@@ -15,8 +15,8 @@ public class ClassInnerConstantStrategy implements ProductStrategy {
     @Override
     public String product(Parser parser, ParseTree parseTree, ClassMeta classMeta, String fp) {
         TokenStream tokenStream = parser.getTokenStream();
-        List<LineExtraMeta> lineExtraMetas = classMeta.getLineExtraMetas();
-        MethodFieldVisit lineFuck = new MethodFieldVisit(tokenStream, lineExtraMetas);
+
+        MethodFieldVisit lineFuck = new MethodFieldVisit(tokenStream, classMeta);
         lineFuck.visit(parseTree);
         String text = lineFuck.getRewriter().getText();
         System.out.println(text);

@@ -1,6 +1,10 @@
 package com.lame.sbconstant;
 
 
+import com.lame.sbconstant.command.Command;
+import com.lame.sbconstant.command.Context;
+import com.lame.sbconstant.command.SimCommand;
+import com.lame.sbconstant.command.XTFCommand;
 import com.lame.sbconstant.detect.AIDetect;
 import com.lame.sbconstant.detect.ConstantDetectFactory;
 import com.lame.sbconstant.detect.DetectContext;
@@ -17,6 +21,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.checkerframework.checker.units.qual.C;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -48,6 +53,8 @@ public class SBConstant {
     static int windex = 0;
 
     public static CyclicBarrier barrier;
+
+    public static String command = "default";
 
     public static volatile boolean firstPassDone = false;
 
@@ -143,24 +150,16 @@ public class SBConstant {
 
     public static void parseFile(String f) {
         try {
-            Lexer lexer = new Java8Lexer(CharStreams.fromFileName(f));
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-            Java8Parser parser = new Java8Parser(tokens);
-            Java8Parser.CompilationUnitContext tree = parser.compilationUnit();
-            FileType fileType = FileType.COMMON;
-            if (aiDetect) {
-                AIDetect aiDetect = new AIDetect();
-                fileType = aiDetect.visit(tree);
+            Context context = new Context(aiDetect, saveFile, output);
+            Command simCommand = new SimCommand();
+            switch (command) {
+                case "xtf":
+                    simCommand = new XTFCommand();
+                    break;
+                default:
+                    break;
             }
-            DetectContext detectContext = ConstantDetectFactory.getDetectContext(fileType);
-            ClassMeta detectMeta = detectContext.detect(tree, f);
-            ProductContext productContext = ProductFactory.getProductContext(fileType);
-            String product = productContext.product(parser, tree, detectMeta, f);
-            if (saveFile) {
-                File detectFile = new File(f);
-                File file = new File(output, detectFile.getName());
-                FileUtils.writeStringToFile(file, product, StandardCharsets.UTF_8);
-            }
+            simCommand.execute(context, f);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -188,6 +187,10 @@ public class SBConstant {
                     case "-o":
                         i++;
                         output = args[i];
+                        break;
+                    case "-command":
+                        i++;
+                        command = args[i];
                         break;
                     default:
                         System.out.println("参数不正确");

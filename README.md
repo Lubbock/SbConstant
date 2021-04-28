@@ -4,7 +4,9 @@
 **SBConstant**，常量抽取工具，主要是为了满足公司编码规范，做的抽取工具，希望大家喜欢。 基于Antlr4开发了，SBConstant。
 各种开发规范，都有要求不能在代码里出现魔数，在实际落实的时候会出现不能出现任何字符串的要求，虽说有道理但是依然是一个重复性很高的操作。
 所以开发SBConstant,自动对代码进行改造。
-目前**SBConstant**可以实现两种范式：
+目前**SBConstant**可以实现两种命令：
+
+**默认命令**
 - mybatis实体，抽取数据库字段
 - 普通类，方法内部，魔法数提成常量
 
@@ -33,6 +35,13 @@ java -cp SBConstant.jar:./libs com.lame.sbconstant.SBConstant -ai -f CustomerApp
 ```sh
 java -cp SBConstant.jar:./libs com.lame.sbconstant.SBConstant -ai -f CustomerApp.java
 ```
+
+**XTF抽取命令**
+增加额外的参数`-command xtf`，可以自动使用实体变量替换
+```shell
+java -cp SBConstant.jar:./libs com.lame.sbconstant.SBConstant -ai -command xtf -f XController.java 
+```
+
 #### 软件架构
 基于antlr4，的java语法解析器。java文件解析成语法数后，完成常量识别和字段抽取工作
 
