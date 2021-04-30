@@ -2,6 +2,8 @@ package com.lame.scanapi;
 
 
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import com.lame.detect.strategy.APIDetectStrategy;
 import com.lame.detect.vo.ApiClassMeta;
 import com.lame.detect.vo.ClassMeta;
@@ -15,8 +17,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class ScanApiApp {
 
@@ -73,17 +76,69 @@ public class ScanApiApp {
                 moduleScan(cm);
             }
         }
-        for (Module module : modules) {
-            System.out.println("********************************");
-            System.out.println(module.name());
-            List<ControllerModule> children = module.children();
-            for (ControllerModule child : children) {
-                System.out.println("==============================api");
-                ApiClassMeta apiClassMeta = child.getApiClassMeta();
-                System.out.println("baseApipath " + apiClassMeta.getBaseApiPath());
-                apiClassMeta.getApis().stream().forEach(System.out::println);
+
+//        系统监控	08e6b9dc3c04489c8e1ff2ce6f105aa4	monitor
+//        服务上架管理	1336941192918274049	srvtpl
+//        服务市场	1338426581305049090	serviceStore
+//        服务管理	1338726488880545794	api,application,authkey,customer,report,srvinse,vsm
+//        资源管理	1344158334211272706	chsm,vsm
+//        审计管理	1356841470050222081	operationAudit
+//        业务管理	1384029851890806786	feedback
+//        系统管理	d7d6e2e4e2934f2c9385a623fd98c6f3	bakrec,cert,helpCenter,message,quartz,system
+
+        //permission_id // module
+        Map<String, String> siteMap = new HashMap<>();
+        siteMap.put("08e6b9dc3c04489c8e1ff2ce6f105aa4", "monitor");
+        siteMap.put("1336941192918274049", "srvtpl");
+        siteMap.put("1338426581305049090", "serviceStore");
+        siteMap.put("1338726488880545794", "api,application,authkey,customer,report,srvinse,vsm");
+        siteMap.put("1344158334211272706", "chsm,vsm");
+        siteMap.put("1356841470050222081", "operationAudit");
+        siteMap.put("1384029851890806786", "feedback");
+        siteMap.put("d7d6e2e4e2934f2c9385a623fd98c6f3", "bakrec,cert,helpCenter,message,quartz,system");
+
+        HashMultimap<String, String> reverse = HashMultimap.create();
+        for (Map.Entry<String, String> entry : siteMap.entrySet()) {
+            String value = entry.getValue();
+            for (String newKey : value.split(",")) {
+                reverse.put(newKey, entry.getKey());
             }
-            System.out.println("**********************end****");
         }
+
+        List<Module> unbindModule = new ArrayList<>();
+        long i = 1387663170767937537L;
+        int step = 1;
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for (Module module : modules) {
+            Set<String> perms = reverse.get(module.name());
+            if (perms != null && perms.size() > 0) {
+                List<ControllerModule> children = module.children();
+                for (ControllerModule child : children) {
+                    ApiClassMeta apiClassMeta = child.getApiClassMeta();
+                    for (String api : apiClassMeta.getApis()) {
+                        if (!api.startsWith("/")) {
+                            api = "/" + api;
+                        }
+                        api = apiClassMeta.getBaseApiPath() + api;
+
+                        for (String perm : perms) {
+                            String sql = String.format("insert into sys_api_permission values('%s','%s','%s','%s','%s');", i + step, module.name(), api, timeFormatter.format(LocalDateTime.now()), perm);
+                            step++;
+                            System.out.println(sql);
+                        }
+                    }
+                }
+            }else {
+                unbindModule.add(module);
+            }
+        }
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        for (Module module : unbindModule) {
+            System.out.println("模块未与权限绑定-module " + module.name());
+        }
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        //language=JSON
+        String s = "";
     }
 }
