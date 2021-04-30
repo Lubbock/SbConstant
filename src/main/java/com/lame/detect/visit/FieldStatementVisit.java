@@ -1,8 +1,8 @@
-package com.lame.sbconstant.detect.visit;
+package com.lame.detect.visit;
 
-import com.lame.sbconstant.detect.vo.ClassField;
-import com.lame.sbconstant.detect.vo.ClassMeta;
-import com.lame.sbconstant.detect.vo.LineExtraMeta;
+import com.lame.detect.vo.ClassField;
+import com.lame.detect.vo.ClassMeta;
+import com.lame.detect.vo.LineExtraMeta;
 import core.analy.Java8Parser;
 import core.analy.Java8ParserBaseVisitor;
 import lombok.Getter;

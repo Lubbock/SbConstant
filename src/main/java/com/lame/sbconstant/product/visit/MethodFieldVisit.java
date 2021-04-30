@@ -1,19 +1,17 @@
 package com.lame.sbconstant.product.visit;
 
-import com.lame.sbconstant.detect.visit.FieldStatementVisit;
-import com.lame.sbconstant.detect.vo.ClassField;
-import com.lame.sbconstant.detect.vo.ClassMeta;
-import com.lame.sbconstant.detect.vo.LineExtraMeta;
+import com.lame.detect.visit.FieldStatementVisit;
+import com.lame.detect.vo.ClassField;
+import com.lame.detect.vo.ClassMeta;
+import com.lame.detect.vo.LineExtraMeta;
 import core.analy.Java8Parser;
 import core.analy.Java8ParserBaseVisitor;
 import lombok.Getter;
-import lombok.Setter;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class MethodFieldVisit extends Java8ParserBaseVisitor<Void> {

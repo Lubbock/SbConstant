@@ -1,21 +1,18 @@
 package com.lame.sbconstant.command;
 
-import com.lame.sbconstant.detect.AIDetect;
-import com.lame.sbconstant.detect.ConstantDetectFactory;
-import com.lame.sbconstant.detect.DetectContext;
-import com.lame.sbconstant.detect.strategy.MethodFieldDetectStrategy;
-import com.lame.sbconstant.detect.vo.ClassMeta;
-import com.lame.sbconstant.detect.vo.FileType;
+import com.lame.detect.AIDetect;
+import com.lame.detect.ConstantDetectFactory;
+import com.lame.detect.DetectContext;
+import com.lame.detect.vo.ClassMeta;
+import com.lame.detect.vo.FileType;
 import com.lame.sbconstant.product.ProductContext;
 import com.lame.sbconstant.product.ProductFactory;
-import com.lame.sbconstant.product.strategy.ClassInnerConstantStrategy;
 import core.analy.Java8Lexer;
 import core.analy.Java8Parser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -27,7 +24,6 @@ public class SimCommand implements Command{
 
     @Override
     public  void execute(Context ctx,String f) throws Exception {
-        File claz = new File(f);
         try {
             Lexer lexer = new Java8Lexer(CharStreams.fromFileName(f));
             CommonTokenStream tokens = new CommonTokenStream(lexer);

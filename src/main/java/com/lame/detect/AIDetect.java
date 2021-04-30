@@ -1,7 +1,7 @@
-package com.lame.sbconstant.detect;
+package com.lame.detect;
 
-import com.lame.sbconstant.detect.visit.PackageImportExtract;
-import com.lame.sbconstant.detect.vo.FileType;
+import com.lame.detect.visit.PackageImportExtract;
+import com.lame.detect.vo.FileType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.antlr.v4.runtime.tree.ParseTree;

@@ -1,6 +1,6 @@
 package com.lame.sbconstant.product.strategy;
 
-import com.lame.sbconstant.detect.vo.ClassMeta;
+import com.lame.detect.vo.ClassMeta;
 import com.lame.sbconstant.product.ProductStrategy;
 import freemarker.template.Configuration;
 import freemarker.template.Template;

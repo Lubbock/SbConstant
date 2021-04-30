@@ -1,6 +1,6 @@
 package com.lame.sbconstant.product;
 
-import com.lame.sbconstant.detect.vo.ClassMeta;
+import com.lame.detect.vo.ClassMeta;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.tree.ParseTree;
 

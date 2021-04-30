@@ -1,8 +1,8 @@
-package com.lame.sbconstant.detect.strategy;
+package com.lame.detect.strategy;
 
-import com.lame.sbconstant.detect.DetectStrategy;
-import com.lame.sbconstant.detect.vo.ClassMeta;
-import com.lame.sbconstant.detect.vo.FileType;
+import com.lame.detect.DetectStrategy;
+import com.lame.detect.vo.ClassMeta;
+import com.lame.detect.vo.FileType;
 import lombok.Data;
 import org.antlr.v4.runtime.tree.ParseTree;
 

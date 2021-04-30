@@ -1,14 +1,13 @@
 package com.lame.sbconstant.command;
 
-import com.lame.sbconstant.detect.ConstantDetectFactory;
-import com.lame.sbconstant.detect.DetectContext;
-import com.lame.sbconstant.detect.strategy.MethodFieldDetectStrategy;
-import com.lame.sbconstant.detect.vo.ClassMeta;
-import com.lame.sbconstant.detect.vo.FileType;
+import com.lame.detect.ConstantDetectFactory;
+import com.lame.detect.DetectContext;
+import com.lame.detect.strategy.MethodFieldDetectStrategy;
+import com.lame.detect.vo.ClassMeta;
+import com.lame.detect.vo.FileType;
 import com.lame.sbconstant.product.ProductContext;
 import com.lame.sbconstant.product.ProductFactory;
 import com.lame.sbconstant.product.strategy.ClassInnerConstantStrategy;
-import com.lame.sbconstant.product.visit.MethodFieldVisit;
 import core.analy.Java8Lexer;
 import core.analy.Java8Parser;
 import org.antlr.v4.runtime.CharStreams;

@@ -1,15 +1,11 @@
 package com.lame.sbconstant.product.strategy;
 
-import com.lame.sbconstant.detect.vo.ClassMeta;
-import com.lame.sbconstant.detect.vo.LineExtraMeta;
+import com.lame.detect.vo.ClassMeta;
 import com.lame.sbconstant.product.ProductStrategy;
 import com.lame.sbconstant.product.visit.MethodFieldVisit;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
-
-import java.util.List;
 
 public class ClassInnerConstantStrategy implements ProductStrategy {
     @Override

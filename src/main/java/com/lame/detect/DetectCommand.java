@@ -1,4 +1,4 @@
-package com.lame.sbconstant.detect;
+package com.lame.detect;
 
 public interface DetectCommand {
 }

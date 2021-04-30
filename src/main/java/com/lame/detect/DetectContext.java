@@ -1,7 +1,6 @@
-package com.lame.sbconstant.detect;
+package com.lame.detect;
 
-import com.lame.sbconstant.detect.vo.ClassMeta;
-import com.lame.sbconstant.detect.vo.FileType;
+import com.lame.detect.vo.ClassMeta;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.antlr.v4.runtime.tree.ParseTree;

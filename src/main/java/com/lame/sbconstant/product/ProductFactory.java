@@ -1,6 +1,6 @@
 package com.lame.sbconstant.product;
 
-import com.lame.sbconstant.detect.vo.FileType;
+import com.lame.detect.vo.FileType;
 import com.lame.sbconstant.product.strategy.ClassInnerConstantStrategy;
 import com.lame.sbconstant.product.strategy.SingleClassConstantStrategy;
 

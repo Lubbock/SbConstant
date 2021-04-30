@@ -1,4 +1,4 @@
-package com.lame.sbconstant.detect.visit;
+package com.lame.detect.visit;
 
 import com.lame.sbconstant.utils.Antlr4Utils;
 import core.analy.Java8Parser;

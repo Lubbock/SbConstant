@@ -1,4 +1,4 @@
-package com.lame.sbconstant.detect.vo;
+package com.lame.detect.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

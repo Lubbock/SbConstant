@@ -1,8 +1,8 @@
-package com.lame.sbconstant.detect;
+package com.lame.detect;
 
-import com.lame.sbconstant.detect.strategy.MethodFieldDetectStrategy;
-import com.lame.sbconstant.detect.strategy.EntityDetectStrategy;
-import com.lame.sbconstant.detect.vo.FileType;
+import com.lame.detect.strategy.MethodFieldDetectStrategy;
+import com.lame.detect.strategy.EntityDetectStrategy;
+import com.lame.detect.vo.FileType;
 
 /**
  * 常量工厂

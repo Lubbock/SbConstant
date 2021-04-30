@@ -1,9 +1,9 @@
-package com.lame.sbconstant.detect.strategy;
+package com.lame.detect.strategy;
 
-import com.lame.sbconstant.detect.DetectStrategy;
-import com.lame.sbconstant.detect.visit.EntityFieldExtract;
-import com.lame.sbconstant.detect.vo.ClassField;
-import com.lame.sbconstant.detect.vo.ClassMeta;
+import com.lame.detect.DetectStrategy;
+import com.lame.detect.visit.EntityFieldExtract;
+import com.lame.detect.vo.ClassField;
+import com.lame.detect.vo.ClassMeta;
 import com.lame.sbconstant.utils.TextUtils;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.lang3.StringUtils;
