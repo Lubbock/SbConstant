@@ -2,6 +2,9 @@ package com.lame.scanapi;
 
 
 
+import com.lame.detect.strategy.APIDetectStrategy;
+import com.lame.detect.vo.ApiClassMeta;
+import com.lame.detect.vo.ClassMeta;
 import com.lame.scanapi.vo.ControllerModule;
 import com.lame.scanapi.vo.Module;
 import com.lame.scanapi.vo.Project;
@@ -27,20 +30,19 @@ public class ScanApiApp {
             if (file.isDirectory()) {
                 Module module = new Module();
                 module.name(file.getName());
-                modules.add(module);
-                System.out.println("=====================\nmodule-"+module.name());
                 List<ControllerModule> controllerModules = new ArrayList<>();
                 File conDir = new File(file.getAbsolutePath(), "controller");
                 if (conDir.exists()) {
+                    modules.add(module);
                     for (File tf : conDir.listFiles()) {
                         if (tf.isFile() && tf.getName().endsWith("Controller.java")) {
                             ControllerModule controllerModule = new ControllerModule();
                             controllerModule.setName(controllerModule.getName());
                             controllerModule.setFile(tf);
                             controllerModules.add(controllerModule);
-                            System.out.println(tf.getName());
                         }
                     }
+                    module.children(controllerModules);
                 }
             }
         }
@@ -54,6 +56,9 @@ public class ScanApiApp {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             Java8Parser parser = new Java8Parser(tokens);
             Java8Parser.CompilationUnitContext tree = parser.compilationUnit();
+            APIDetectStrategy detect = new APIDetectStrategy();
+            ApiClassMeta apiClassMeta = (ApiClassMeta)detect.detect(tree);
+            cm.setApiClassMeta(apiClassMeta);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,6 +72,18 @@ public class ScanApiApp {
             for (ControllerModule cm : module.children()) {
                 moduleScan(cm);
             }
+        }
+        for (Module module : modules) {
+            System.out.println("********************************");
+            System.out.println(module.name());
+            List<ControllerModule> children = module.children();
+            for (ControllerModule child : children) {
+                System.out.println("==============================api");
+                ApiClassMeta apiClassMeta = child.getApiClassMeta();
+                System.out.println("baseApipath " + apiClassMeta.getBaseApiPath());
+                apiClassMeta.getApis().stream().forEach(System.out::println);
+            }
+            System.out.println("**********************end****");
         }
     }
 }
