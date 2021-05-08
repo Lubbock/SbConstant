@@ -7,17 +7,18 @@ import java.util.List;
 public class ApiClassMeta extends ClassMeta{
     private String baseApiPath;
 
-    private List<String> apis = new ArrayList<>();
+    private List<API> apis = new ArrayList<>();
 
-    public void addApi(String api) {
+    public void addApi(String url,String note) {
+        API api = new API(url, note);
         apis.add(api);
     }
 
-    public List<String> getApis() {
+    public List<API> getApis() {
         return apis;
     }
 
-    public void setApis(List<String> apis) {
+    public void setApis(List<API> apis) {
         this.apis = apis;
     }
 

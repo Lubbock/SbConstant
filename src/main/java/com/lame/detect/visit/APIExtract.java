@@ -9,10 +9,13 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class APIExtract extends Java8ParserBaseVisitor<String> {
 
     ApiClassMeta apiClassMeta = new ApiClassMeta();
+
+    SwaggerApiExtract swaggerApiExtract = new SwaggerApiExtract();
 
     @Override
     public String visitSingleElementAnnotation(Java8Parser.SingleElementAnnotationContext ctx) {
@@ -60,14 +63,52 @@ public class APIExtract extends Java8ParserBaseVisitor<String> {
                                             || identifier.getText().equals("path")
                             ) {
                                 String url = elementValuePairContext.elementValue().getText();
-                                apiClassMeta.addApi(url.substring(1, url.length() - 1));
+                                return url.substring(1, url.length() - 1);
                             };
                         }
                     }
                 }
             }
         }
-        return super.visitNormalAnnotation(ctx);
+        return "";
+    }
+
+    @Override
+    public String visitMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
+        List<Java8Parser.MethodModifierContext> methodModifierContexts = ctx.methodModifier();
+        String note = "";
+        String api = "";
+        if (methodModifierContexts != null) {
+            for (Java8Parser.MethodModifierContext methodModifierContext : methodModifierContexts) {
+                note = swaggerApiExtract.visit(methodModifierContext);
+                if (StringUtils.isNotBlank(note)) {
+                    break;
+                }
+            }
+            for (Java8Parser.MethodModifierContext methodModifierContext : methodModifierContexts) {
+                Java8Parser.AnnotationContext annotation = methodModifierContext.annotation();
+                if (annotation != null) {
+                    api = visit(methodModifierContext.annotation());
+                    if (StringUtils.isNotBlank(api)) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (note == null) {
+            note = "";
+        }
+
+        if (api == null) {
+            api = "";
+        }
+        if (StringUtils.isNotBlank(api)) {
+            System.out.println(note + " " + api);
+            apiClassMeta.addApi(api, note);
+        }
+
+        return super.visitMethodDeclaration(ctx);
     }
 
     @Override

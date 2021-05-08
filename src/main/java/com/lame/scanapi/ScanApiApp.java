@@ -5,6 +5,7 @@ package com.lame.scanapi;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.lame.detect.strategy.APIDetectStrategy;
+import com.lame.detect.vo.API;
 import com.lame.detect.vo.ApiClassMeta;
 import com.lame.detect.vo.ClassMeta;
 import com.lame.scanapi.vo.ControllerModule;
@@ -15,6 +16,7 @@ import core.analy.Java8Parser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Lexer;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -115,14 +117,19 @@ public class ScanApiApp {
                 List<ControllerModule> children = module.children();
                 for (ControllerModule child : children) {
                     ApiClassMeta apiClassMeta = child.getApiClassMeta();
-                    for (String api : apiClassMeta.getApis()) {
-                        if (!api.startsWith("/")) {
-                            api = "/" + api;
+                    for (API api : apiClassMeta.getApis()) {
+                        String url = api.getUrl();
+                        if (!url.startsWith("/")) {
+                            url = "/" + url;
                         }
-                        api = apiClassMeta.getBaseApiPath() + api;
-
+                        url = apiClassMeta.getBaseApiPath() + url;
+                        String note = module.name();
+                        if (StringUtils.isNotBlank(api.getNote())) {
+                            String temp = api.getNote();
+                            note = temp.replaceAll("\'", "\"");
+                        }
                         for (String perm : perms) {
-                            String sql = String.format("insert into sys_api_permission values('%s','%s','%s','%s','%s');", i + step, module.name(), api, timeFormatter.format(LocalDateTime.now()), perm);
+                            String sql = String.format("insert into sys_api_permission values('%s','%s','%s','%s','%s');", i + step, note, url, timeFormatter.format(LocalDateTime.now()), perm);
                             step++;
                             System.out.println(sql);
                         }
@@ -138,6 +145,27 @@ public class ScanApiApp {
         }
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
+        System.out.println("++++++++++++++++++++++++++++++++++++");
+        for (Module module : modules) {
+            Set<String> perms = reverse.get(module.name());
+            if (perms != null && perms.size() > 0) {
+                List<ControllerModule> children = module.children();
+                for (ControllerModule child : children) {
+                    ApiClassMeta apiClassMeta = child.getApiClassMeta();
+                    List<API> apis = apiClassMeta.getApis();
+                    System.out.println("....扫描模块:" + module.name());
+                    System.out.println("....扫描基础url:" + apiClassMeta.getBaseApiPath());
+                    System.out.println("*******************************");
+                    for (API api : apis) {
+                        if (StringUtils.isBlank(api.getNote())) {
+                            System.out.println("备注不存在：" + api.getUrl());
+                        }
+                    }
+                    System.out.println("****************************");
+                }
+            }
+        }
+        System.out.println("++++++++++++++++++++++++++++++++++++");
         //language=JSON
         String s = "";
     }
